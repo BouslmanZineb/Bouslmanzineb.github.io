@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zineb Bouslman — Développeuse Fullstack</title>
+  <meta name="description" content="Portfolio de Zineb Bouslman, étudiante en informatique, alternance développeur fullstack Java / PHP / Web." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    /* VARIABLES  */
+    :root {
+      --fond-page: #0f0b14;
+      --surface-carte: #170f20;
+      --surface-elevee: #1f1530;
+      --bordure: rgba(200,170,255,0.08);
+      --bordure-active: rgba(200,170,255,0.22);
+      --texte-principal: #f5f0ff;
+      --texte-secondaire: #a191b8;
+      --texte-discret: #5c4d72;
+      --accent-vert: #c084fc;
+      --accent-vert-fonce: #a855f7;
+      --accent-violet: #e879f9;
+      --accent-rose: #f0abfc;
+      --accent-orange: #f59e0b;
+      --rayon-carte: 18px;
+      --ombre-carte: 0 8px 32px rgba(120,0,200,0.18);
+      --police-titre: 'Playfair Display', serif;
+      --police-corps: 'Nunito', sans-serif;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /*  RESET  */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--police-corps);
+      background-color: var(--fond-page);
+      color: var(--texte-principal);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /*  BRUIT DE FOND  */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='bruit'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23bruit)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /*  CONTENANT  */
+    .contenant {
+      width: min(1100px, calc(100% - 48px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /*  NAVIGATION  */
+    #navigation {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 24px;
+      background: rgba(15,11,20,0.85);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid var(--bordure);
+    }
+    .barre-nav {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    #logo {
+      font-family: var(--police-titre);
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      color: var(--texte-principal);
+    }
+    #logo span { color: var(--accent-violet); }
+    #menu-principal {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    #menu-principal a {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--texte-secondaire);
+      transition: var(--transition);
+    }
+    #menu-principal a:hover { color: var(--texte-principal); background: var(--surface-elevee); }
+    #lien-contact-nav {
+      background: var(--accent-vert) !important;
+      color: #0b0d10 !important;
+      font-weight: 700 !important;
+      border-radius: 8px;
+    }
+    #lien-contact-nav:hover { background: var(--accent-vert-fonce) !important; }
+
+    #bouton-menu-mobile {
+      display: none;
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      color: var(--texte-principal);
+      font-size: 1.1rem;
+    }
+
+    /*  SECTION ACCUEIL  */
+    #accueil {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0 60px;
+      position: relative;
+    }
+    #accueil::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -15%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(192,132,252,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #accueil::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(232,121,249,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contenu-accueil { max-width: 760px; }
+    .etiquette-disponible {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,160,0.1);
+      border: 1px solid rgba(0,229,160,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-vert);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .point-vert {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-vert);
+      border-radius: 50%;
+      animation: pulse-vert 2s infinite;
+    }
+    @keyframes pulse-vert {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+    #titre-accueil {
+      font-family: var(--police-titre);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      color: var(--texte-principal);
+    }
+    #titre-accueil .accent-titre { color: var(--accent-vert); }
+    #description-accueil {
+      font-size: 1.1rem;
+      color: var(--texte-secondaire);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+    .groupe-boutons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .bouton-principal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: var(--accent-vert);
+      color: #ffffff;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .bouton-principal:hover { background: var(--accent-vert-fonce); transform: translateY(-2px); }
+    .bouton-secondaire {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure-active);
+      color: var(--texte-principal);
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .bouton-secondaire:hover { border-color: var(--accent-vert); color: var(--accent-vert); transform: translateY(-2px); }
+    .liens-reseaux {
+      display: flex;
+      gap: 12px;
+    }
+    .lien-reseau {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      color: var(--texte-secondaire);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .lien-reseau:hover { color: var(--accent-vert); border-color: var(--accent-vert); }
+
+    /* SECTIONS GENERALES */
+    .section-portfolio {
+      padding: 100px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .en-tete-section {
+      margin-bottom: 56px;
+    }
+    .etiquette-section {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-vert);
+      margin-bottom: 14px;
+    }
+    .titre-section {
+      font-family: var(--police-titre);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--texte-principal);
+    }
+    .description-section {
+      color: var(--texte-secondaire);
+      max-width: 600px;
+      margin-top: 14px;
+      font-size: 1rem;
+    }
+
+    /*  PROGRESSION DE POSTE  */
+    .progression-poste {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 52px;
+      padding: 24px 28px;
+      background: linear-gradient(135deg, rgba(192,132,252,0.07), rgba(232,121,249,0.04));
+      border: 1px solid rgba(192,132,252,0.16);
+      border-radius: 16px;
+    }
+    .etape-poste {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .puce-etape {
+      font-size: 0.72rem;
+      color: var(--texte-discret);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .nom-etape {
+      font-family: var(--police-titre);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--texte-secondaire);
+      font-style: italic;
+    }
+    .etape-active .nom-etape { color: var(--accent-violet); }
+    .etape-active .puce-etape { color: var(--accent-vert); }
+    .fleche-etape { color: var(--texte-discret); font-size: 0.75rem; }
+    .contexte-experience {
+      font-size: 0.92rem;
+      color: var(--accent-rose);
+      font-style: italic;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    /*  QUALITES  */
+    .grille-qualites {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .carte-qualite {
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: var(--rayon-carte);
+      padding: 28px 26px;
+      transition: var(--transition);
+    }
+    .carte-qualite:hover {
+      border-color: rgba(192,132,252,0.3);
+      transform: translateY(-3px);
+    }
+    .emoji-qualite {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+    .titre-qualite {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--texte-principal);
+    }
+    .texte-qualite { color: var(--texte-secondaire); font-size: 0.9rem; line-height: 1.7; }
+
+    /* BENEVOLT ET CERTIFICATIONS  */
+    .grille-benevolt-certif {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .liste-benevolt, .liste-certif {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 0;
+    }
+    .carte-benevolt {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px 24px;
+      background: linear-gradient(135deg, rgba(192,132,252,0.07), rgba(232,121,249,0.03));
+      border: 1px solid rgba(192,132,252,0.15);
+      border-radius: 14px;
+      transition: var(--transition);
+    }
+    .carte-benevolt:hover { border-color: rgba(192,132,252,0.35); transform: translateY(-2px); }
+    .icone-benevolt {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(232,121,249,0.2), rgba(192,132,252,0.15));
+      border: 1px solid rgba(232,121,249,0.2);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--accent-violet);
+      font-size: 0.95rem;
+    }
+    .titre-benevolt {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.97rem;
+      margin-bottom: 6px;
+      color: var(--texte-principal);
+    }
+    .texte-benevolt { color: var(--texte-secondaire); font-size: 0.88rem; line-height: 1.65; }
+    .carte-certif {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 22px;
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: 14px;
+      transition: var(--transition);
+    }
+    .carte-certif:hover { border-color: var(--bordure-active); transform: translateY(-2px); }
+    .badge-certif {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      background: rgba(192,132,252,0.1);
+      border: 1px solid rgba(192,132,252,0.18);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--accent-vert);
+      font-size: 0.9rem;
+    }
+    .titre-certif {
+      font-family: var(--police-corps);
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 5px;
+      color: var(--texte-principal);
+    }
+    .texte-certif { color: var(--texte-secondaire); font-size: 0.86rem; line-height: 1.6; }
+
+    /* SEPARATEUR */
+    .ligne-separateur {
+      border: none;
+      border-top: 1px solid var(--bordure);
+      margin: 0;
+    }
+
+    /* ===== A PROPOS ===== */
+    #apropos .grille-apropos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 0;
+    }
+    .carte-apropos {
+      background: linear-gradient(135deg, rgba(192,132,252,0.09) 0%, rgba(232,121,249,0.04) 100%);
+      border: 1px solid rgba(192,132,252,0.18);
+      border-radius: 20px;
+      padding: 34px 30px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .carte-apropos::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      background: radial-gradient(circle, rgba(232,121,249,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .carte-apropos:hover {
+      border-color: rgba(192,132,252,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(192,132,252,0.15);
+    }
+    .icone-apropos {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(192,132,252,0.2), rgba(232,121,249,0.15));
+      border: 1px solid rgba(192,132,252,0.25);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--accent-violet);
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+    }
+    .titre-carte-apropos {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+      color: var(--texte-principal);
+    }
+    .texte-carte-apropos { color: var(--texte-secondaire); font-size: 0.93rem; line-height: 1.7; }
+
+    /*  FORMATION  */
+    #formation .liste-formation { display: flex; flex-direction: column; gap: 0; }
+    .element-formation {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--bordure);
+      align-items: start;
+    }
+    .element-formation:first-child { padding-top: 0; }
+    .element-formation:last-child { border-bottom: none; padding-bottom: 0; }
+    .date-formation {
+      font-size: 0.85rem;
+      color: var(--texte-discret);
+      font-weight: 500;
+      padding-top: 4px;
+    }
+    .nom-diplome {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .etablissement-formation { color: var(--texte-secondaire); font-size: 0.95rem; }
+
+    /* PROJETS  */
+    #projets .grille-projets {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .carte-projet {
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: var(--rayon-carte);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .carte-projet:hover {
+      border-color: var(--bordure-active);
+      transform: translateY(-4px);
+      box-shadow: var(--ombre-carte);
+    }
+    .en-tete-projet {
+      padding: 24px 24px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .icone-projet {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .icone-java { background: rgba(245,158,11,0.12); color: var(--accent-orange); border: 1px solid rgba(245,158,11,0.2); }
+    .icone-web { background: rgba(192,132,252,0.12); color: var(--accent-vert); border: 1px solid rgba(192,132,252,0.2); }
+    .icone-python { background: rgba(232,121,249,0.12); color: var(--accent-violet); border: 1px solid rgba(232,121,249,0.2); }
+    .icone-c { background: rgba(192,132,252,0.1); color: var(--accent-rose); border: 1px solid rgba(192,132,252,0.18); }
+    .lien-github-projet {
+      color: var(--texte-discret);
+      font-size: 1rem;
+      transition: var(--transition);
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+    .lien-github-projet:hover { color: var(--accent-vert); }
+    .corps-projet { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+    .titre-projet {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+    .description-projet {
+      color: var(--texte-secondaire);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+    .technologies-projet {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .etiquette-tech {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--bordure);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--texte-secondaire);
+    }
+
+    /*  COMPETENCES  */
+    #competences .grille-competences {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .carte-competence {
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: var(--rayon-carte);
+      padding: 28px;
+      transition: var(--transition);
+    }
+    .carte-competence:hover { border-color: var(--bordure-active); }
+    .titre-groupe-competences {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      color: var(--texte-secondaire);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .liste-competences-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .puce-competence {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--bordure);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--texte-principal);
+      transition: var(--transition);
+    }
+    .puce-competence:hover { border-color: var(--accent-vert); color: var(--accent-vert); }
+
+    /*  EXPERIENCE  */
+    #experience .ligne-temps { display: flex; flex-direction: column; gap: 0; }
+    .element-experience {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--bordure);
+    }
+    .element-experience:first-child { padding-top: 0; }
+    .element-experience:last-child { border-bottom: none; padding-bottom: 0; }
+    .periode-experience {
+      font-size: 0.82rem;
+      color: var(--texte-discret);
+      font-weight: 500;
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+    .poste-experience {
+      font-family: var(--police-titre);
+      font-weight: 700;
+      font-size: 1.08rem;
+      margin-bottom: 4px;
+    }
+    .entreprise-experience {
+      font-size: 0.9rem;
+      color: var(--accent-vert);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .taches-experience { display: flex; flex-direction: column; gap: 8px; }
+    .tache-experience {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--texte-secondaire);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .tache-experience::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--accent-vert);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 9px;
+    }
+
+    /*  CONTACT  */
+    #contact .boite-contact {
+      background: var(--surface-carte);
+      border: 1px solid var(--bordure);
+      border-radius: 20px;
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact .boite-contact::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(0,229,160,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .titre-contact {
+      font-family: var(--police-titre);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .description-contact {
+      color: var(--texte-secondaire);
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+    .options-contact {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .option-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      background: var(--surface-elevee);
+      border: 1px solid var(--bordure-active);
+      border-radius: 10px;
+      color: var(--texte-principal);
+      font-weight: 500;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+    .option-contact i { color: var(--accent-vert); }
+    .option-contact:hover { border-color: var(--accent-vert); transform: translateY(-2px); }
+
+    /* PIED DE PAGE */
+    #pied-page {
+      border-top: 1px solid var(--bordure);
+      padding: 28px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .contenu-pied {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .copyright-pied {
+      font-size: 0.88rem;
+      color: var(--texte-discret);
+    }
+    .liens-pied {
+      display: flex;
+      gap: 20px;
+    }
+    .liens-pied a {
+      font-size: 0.88rem;
+      color: var(--texte-discret);
+      transition: var(--transition);
+    }
+    .liens-pied a:hover { color: var(--accent-vert); }
+
+    /* ANIMATIONS D'ENTREE  */
+    .apparait {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .apparait.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .apparait-decale-1 { transition-delay: 0.1s; }
+    .apparait-decale-2 { transition-delay: 0.2s; }
+    .apparait-decale-3 { transition-delay: 0.3s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      #bouton-menu-mobile { display: block; }
+      #menu-principal {
+        display: none;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        flex-direction: column;
+        background: var(--fond-page);
+        border-bottom: 1px solid var(--bordure);
+        padding: 16px 24px;
+      }
+      #menu-principal.ouvert { display: flex; }
+      #menu-principal a { width: 100%; padding: 12px 16px; border-radius: 8px; }
+      #navigation { position: relative; }
+      #accueil { padding-top: 40px; }
+    }
+    @media (max-width: 768px) {
+      .section-portfolio { padding: 70px 0; }
+      #apropos .grille-apropos,
+      #projets .grille-projets,
+      #competences .grille-competences,
+      .grille-qualites,
+      .grille-benevolt-certif { grid-template-columns: 1fr; }
+      .element-formation,
+      .element-experience { grid-template-columns: 1fr; gap: 8px; }
+      #contact .boite-contact { padding: 40px 28px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="navigation" aria-label="Navigation principale">
+    <div class="barre-nav">
+      <a href="#accueil" id="logo">Zineb<span>.</span></a>
+      <button id="bouton-menu-mobile" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-principal">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul id="menu-principal" role="list">
+        <li><a href="#apropos" class="lien-menu">À propos</a></li>
+       
+        <li><a href="#projets" class="lien-menu">Projets</a></li>
+        <li><a href="#competences" class="lien-menu">Compétences</a></li>
+        <li><a href="#experience" class="lien-menu">Expérience</a></li>
+        <li><a href="#benevolt" class="lien-menu">Bénévolat</a></li>
+        <li><a href="#contact" id="lien-contact-nav" class="lien-menu">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== ACCUEIL ===== -->
+    <section id="accueil">
+      <div class="contenant">
+        <div class="contenu-accueil">
+          <div class="etiquette-disponible">
+            <span class="point-vert" aria-hidden="true"></span>
+            Disponible pour alternance — rentrée 2026
+          </div>
+          <h1 id="titre-accueil">
+            Zineb<br>
+            <span class="accent-titre">Bouslman</span>
+          </h1>
+          <p id="description-accueil">
+Diplômée d’une Licence Informatique et étudiante en Master BDIA (Bases de Données & Intelligence Artificielle), je recherche une alternance et suis mobile sur Lyon, Paris et Dijon.
+          </p>
+          <div class="groupe-boutons">
+            <a href="#projets" class="bouton-principal">
+              <i class="fas fa-code" aria-hidden="true"></i> Voir mes projets
+            </a>
+            <a href="#contact" class="bouton-secondaire">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i> Me contacter
+            </a>
+          </div>
+          <div class="liens-reseaux" aria-label="Mes réseaux">
+            <a href="https://github.com/BouslmanZineb" class="lien-reseau" target="_blank" rel="noopener" aria-label="GitHub">
+              <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/zineb-bouslman-3a405220a/" class="lien-reseau" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:bouslmanzineb2002@gmail.com" class="lien-reseau" aria-label="Email">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== A PROPOS ===== -->
+    <section id="apropos" class="section-portfolio">
+      <div class="contenant">
+        <div class="en-tete-section apparait">
+          <span class="etiquette-section">À propos</span>
+          <h2 class="titre-section">Qui suis-je ?</h2>
+          <p class="description-section">
+            Étudiante passionnée par le développement et la data, je combine rigueur technique et esprit d'équipe forgé par plusieurs années d'expérience en management.
+          </p>
+        </div>
+        <div class="grille-apropos">
+          <article class="carte-apropos apparait apparait-decale-1">
+            <div class="icone-apropos" aria-hidden="true"><i class="fas fa-graduation-cap"></i></div>
+            <h3 class="titre-carte-apropos">Formation</h3>
+            <p class="texte-carte-apropos">
+              Licence en informatique à l’Université Bourgogne Europe.
+Formation axée sur le développement logiciel, les bases de données , l'intelligence Artificielle et l’algorithmique.
+Je poursuis mon parcours vers un Master BDIA (Bases de Données & Intelligence Artificielle).
+            </p>
+          </article>
+          <article class="carte-apropos apparait apparait-decale-2">
+            <div class="icone-apropos" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+            <h3 class="titre-carte-apropos">Mes intérêts</h3>
+            <p class="texte-carte-apropos">Le développement web fullstack, la data, le machine learning et les bases de données. Je m'intéresse aussi à la qualité du code, aux tests et aux bonnes pratiques de développement.</p>
+          </article>
+          <article class="carte-apropos apparait apparait-decale-3">
+            <div class="icone-apropos" aria-hidden="true"><i class="fas fa-bullseye"></i></div>
+            <h3 class="titre-carte-apropos">Mon objectif</h3>
+            <p class="texte-carte-apropos">Obtenir une alternance en data ou développement orienté data à partir de septembre 2026, afin de travailler sur des problématiques liées à l’analyse, la gestion et la valorisation des données.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <hr class="ligne-separateur" />
+
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== PROJETS ===== -->
+    <section id="projets" class="section-portfolio">
+      <div class="contenant">
+        <div class="en-tete-section apparait">
+          <span class="etiquette-section">Réalisations</span>
+          <h2 class="titre-section">Mes projets</h2>
+          <p class="description-section">Projets réalisés durant ma formation, couvrant le développement web, la data, l'algorithmique et le génie logiciel.</p>
+        </div>
+        <div class="grille-projets">
+          <article class="carte-projet apparait">
+  <div class="en-tete-projet">
+    <div class="icone-projet icone-python"><i class="fas fa-database"></i></div>
+    <a href="https://github.com/BouslmanZineb" class="lien-github-projet" target="_blank">
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <div class="corps-projet">
+    <h3 class="titre-projet">Système de pilotage par la donnée</h3>
+    <p class="description-projet">
+      Conception d’un pipeline ETL (Python, SQL) avec stockage PostgreSQL. 
+      Mise en place de KPI et modèle de machine learning (Random Forest) 
+      pour prédire les retards. Visualisation avec Power BI.
+    </p>
+    <div class="technologies-projet">
+      <span class="etiquette-tech">Python</span>
+      <span class="etiquette-tech">SQL</span>
+      <span class="etiquette-tech">PostgreSQL</span>
+      <span class="etiquette-tech">Machine Learning</span>
+      <span class="etiquette-tech">Power BI</span>
+    </div>
+  </div>
+</article>
+
+          <article class="carte-projet apparait">
+            <div class="en-tete-projet">
+              <div class="icone-projet icone-java" aria-hidden="true"><i class="fab fa-java"></i></div>
+              <a href="https://github.com/BouslmanZineb/Boutique-de-fruit-" class="lien-github-projet" target="_blank" rel="noopener" aria-label="Code source de Boutique de fruits"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="corps-projet">
+              <h3 class="titre-projet">Boutique de fruits</h3>
+              <p class="description-projet">Application Java en architecture MVC avec gestion d'un panier. Conception UML, tests unitaires (JUnit, Mockito), couverture de code (JaCoCo, Maven) et méthodologie Agile Scrum.</p>
+              <div class="technologies-projet" aria-label="Technologies utilisées">
+                <span class="etiquette-tech">Java</span>
+                <span class="etiquette-tech">MVC</span>
+                <span class="etiquette-tech">JUnit</span>
+                <span class="etiquette-tech">Mockito</span>
+                <span class="etiquette-tech">Maven</span>
+                <span class="etiquette-tech">UML</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carte-projet apparait apparait-decale-1">
+            <div class="en-tete-projet">
+              <div class="icone-projet icone-web" aria-hidden="true"><i class="fas fa-globe"></i></div>
+              <a href="https://github.com/BouslmanZineb" class="lien-github-projet" target="_blank" rel="noopener" aria-label="Code source du projet restaurant"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="corps-projet">
+              <h3 class="titre-projet">Réservation de restaurant</h3>
+              <p class="description-projet">Application web complète avec front-end en HTML/CSS/JavaScript et back-end en PHP. Base de données relationnelle MySQL, architecture MVC et gestion des données utilisateurs.</p>
+              <div class="technologies-projet" aria-label="Technologies utilisées">
+                <span class="etiquette-tech">PHP</span>
+                <span class="etiquette-tech">MySQL</span>
+                <span class="etiquette-tech">HTML</span>
+                <span class="etiquette-tech">CSS</span>
+                <span class="etiquette-tech">JavaScript</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carte-projet apparait apparait-decale-2">
+            <div class="en-tete-projet">
+              <div class="icone-projet icone-python" aria-hidden="true"><i class="fab fa-python"></i></div>
+              <a href="https://github.com/BouslmanZineb" class="lien-github-projet" target="_blank" rel="noopener" aria-label="Code source du jeu de labyrinthe"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="corps-projet">
+              <h3 class="titre-projet">Jeu de labyrinthe</h3>
+              <p class="description-projet">Générateur de labyrinthe en Python basé sur une grille. Implémentation d'algorithmes de parcours DFS et BFS, avec utilisation de structures de données avancées (piles, files).</p>
+              <div class="technologies-projet" aria-label="Technologies utilisées">
+                <span class="etiquette-tech">Python</span>
+                <span class="etiquette-tech">DFS / BFS</span>
+                <span class="etiquette-tech">Algorithmique</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carte-projet apparait">
+            <div class="en-tete-projet">
+              <div class="icone-projet icone-c" aria-hidden="true"><i class="fas fa-network-wired"></i></div>
+              <a href="https://github.com/BouslmanZineb/jeu-6-qui-prend-" class="lien-github-projet" target="_blank" rel="noopener" aria-label="Code source du jeu 6 qui prend"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="corps-projet">
+              <h3 class="titre-projet">Jeu 6 qui prend</h3>
+              <p class="description-projet">Implémentation en C du jeu de société en architecture client-serveur. Communication par sockets TCP et gestion de la concurrence avec des threads.</p>
+              <div class="technologies-projet" aria-label="Technologies utilisées">
+                <span class="etiquette-tech">C</span>
+                <span class="etiquette-tech">Sockets TCP</span>
+                <span class="etiquette-tech">Threads</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carte-projet apparait apparait-decale-1">
+            <div class="en-tete-projet">
+              <div class="icone-projet icone-c" aria-hidden="true"><i class="fas fa-project-diagram"></i></div>
+              <a href="https://github.com/BouslmanZineb/projet-des-graphes" class="lien-github-projet" target="_blank" rel="noopener" aria-label="Code source du projet des graphes"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="corps-projet">
+              <h3 class="titre-projet">Projet des graphes</h3>
+              <p class="description-projet">Génération de graphes aléatoires et application d'algorithmes de coloration (glouton, DSATUR). Exploration des structures de graphes et optimisation combinatoire.</p>
+              <div class="technologies-projet" aria-label="Technologies utilisées">
+                <span class="etiquette-tech">C</span>
+                <span class="etiquette-tech">Graphes</span>
+                <span class="etiquette-tech">DSATUR</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carte-projet apparait apparait-decale-2">
+            <div class="en-tete-projet">
+              <div class="icone-projet icone-c" aria-hidden="true"><i class="fas fa-cogs"></i></div>
+              <a href="https://github.com/BouslmanZineb/projet-de-compilation" class="lien-github-projet" target="_blank" rel="noopener" aria-label="Code source du projet de compilation"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="corps-projet">
+              <h3 class="titre-projet">Projet de compilation</h3>
+              <p class="description-projet">Création d'un analyseur lexical et syntaxique avec Lex et Yacc. Compréhension des fondements du fonctionnement d'un compilateur et des grammaires formelles.</p>
+              <div class="technologies-projet" aria-label="Technologies utilisées">
+                <span class="etiquette-tech">C</span>
+                <span class="etiquette-tech">Lex</span>
+                <span class="etiquette-tech">Yacc</span>
+              </div>
+            </div>
+          </article>
+          <article class="carte-projet apparait apparait-decale-1">
+  <div class="en-tete-projet">
+    <div class="icone-projet icone-python"><i class="fas fa-wave-square"></i></div>
+    <a href="https://github.com/BouslmanZineb" class="lien-github-projet" target="_blank">
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <div class="corps-projet">
+    <h3 class="titre-projet">Transformée de Fourier</h3>
+    <p class="description-projet">
+      Analyse de signaux et d’images avec DFT et FFT. 
+      Étude des composantes fréquentielles et traitement du signal.
+    </p>
+    <div class="technologies-projet">
+      <span class="etiquette-tech">MATLAB</span>
+      <span class="etiquette-tech">FFT</span>
+      <span class="etiquette-tech">Signal</span>
+    </div>
+  </div>
+</article>
+
+        </div>
+        <div style="text-align:center; margin-top:40px;">
+          <a href="https://github.com/BouslmanZineb" class="bouton-secondaire" target="_blank" rel="noopener">
+            <i class="fab fa-github" aria-hidden="true"></i> Voir tous mes projets sur GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== COMPETENCES ===== -->
+    <section id="competences" class="section-portfolio">
+      <div class="contenant">
+        <div class="en-tete-section apparait">
+          <span class="etiquette-section">Compétences</span>
+          <h2 class="titre-section">Mes outils et technologies</h2>
+          <p class="description-section">Langages, frameworks et outils que j'utilise dans mes projets.</p>
+        </div>
+        <div class="grille-competences">
+
+          <article class="carte-competence apparait">
+            <h3 class="titre-groupe-competences">Langages</h3>
+            <div class="liste-competences-tech">
+              <span class="puce-competence">Java</span>
+              <span class="puce-competence">Python</span>
+              <span class="puce-competence">C / C++</span>
+              <span class="puce-competence">PHP</span>
+            </div>
+          </article>
+
+          <article class="carte-competence apparait apparait-decale-1">
+            <h3 class="titre-groupe-competences">Développement Web</h3>
+            <div class="liste-competences-tech">
+              <span class="puce-competence">HTML</span>
+              <span class="puce-competence">CSS</span>
+              <span class="puce-competence">JavaScript</span>
+              <span class="puce-competence">jQuery</span>
+              <span class="puce-competence">API REST</span>
+              <span class="puce-competence">JSON</span>
+              <span class="puce-competence">MVC</span>
+            </div>
+          </article>
+
+          <article class="carte-competence apparait apparait-decale-2">
+            <h3 class="titre-groupe-competences">Bases de données</h3>
+            <div class="liste-competences-tech">
+              <span class="puce-competence">SQL</span>
+              <span class="puce-competence">MySQL</span>
+              <span class="puce-competence">PL/SQL</span>
+              <span class="puce-competence">NoSQL</span>
+           
+            <span class="puce-competence">PostgreSQL</span>
+             </div>
+          </article>
+
+          <article class="carte-competence apparait">
+            <h3 class="titre-groupe-competences">Data & Machine Learning</h3>
+            <div class="liste-competences-tech">
+              <span class="puce-competence">Scikit-learn</span>
+              <span class="puce-competence">KNN</span>
+              <span class="puce-competence">K-means</span>
+              <span class="puce-competence">Régression</span>
+              <span class="puce-competence">Power BI</span>
+              <span class="puce-competence">ETL</span>
+<span class="puce-competence">Pandas</span>
+
+<span class="puce-competence">Random Forest</span>
+<span class="puce-competence">Analyse de données</span>
+            </div>
+          </article>
+
+          <article class="carte-competence apparait apparait-decale-1">
+            <h3 class="titre-groupe-competences">Outils & Environnement</h3>
+            <div class="liste-competences-tech">
+              <span class="puce-competence">Git</span>
+              <span class="puce-competence">GitHub</span>
+              <span class="puce-competence">GitLab</span>
+              <span class="puce-competence">NetBeans</span>
+              <span class="puce-competence">Visual Studio</span>
+              <span class="puce-competence">Excel</span>
+            </div>
+          </article>
+
+          <article class="carte-competence apparait apparait-decale-2">
+            <h3 class="titre-groupe-competences">Tests & Méthode</h3>
+            <div class="liste-competences-tech">
+              <span class="puce-competence">JUnit</span>
+              <span class="puce-competence">Mockito</span>
+              <span class="puce-competence">JaCoCo</span>
+              <span class="puce-competence">Maven</span>
+              <span class="puce-competence">UML</span>
+              <span class="puce-competence">Scrum</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" class="section-portfolio">
+      <div class="contenant">
+        <div class="en-tete-section apparait">
+          <span class="etiquette-section">Expérience</span>
+          <h2 class="titre-section">Un parcours qui parle de moi</h2>
+          <p class="description-section">Depuis mes débuts en 2022 jusqu'à aujourd'hui, j'ai gravi tous les échelons chez McDonald's Dijon — tout en menant ma licence en parallèle, les weekends et les vacances.</p>
+        </div>
+
+        <!-- Progression visuelle -->
+        <div class="progression-poste apparait">
+          <div class="etape-poste">
+            <span class="puce-etape">2022</span>
+            <span class="nom-etape">Équipière</span>
+          </div>
+          <div class="fleche-etape" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+          <div class="etape-poste">
+            <span class="puce-etape">2023</span>
+            <span class="nom-etape">Formatrice</span>
+          </div>
+          <div class="fleche-etape" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+          <div class="etape-poste">
+            <span class="puce-etape">Sept. 2024</span>
+            <span class="nom-etape">Chef d'équipe</span>
+          </div>
+          <div class="fleche-etape" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+          <div class="etape-poste etape-active">
+            <span class="puce-etape">Oct. 2024</span>
+            <span class="nom-etape">Responsable opérationnel</span>
+          </div>
+        </div>
+
+        <div class="ligne-temps" role="list">
+
+          <article class="element-experience apparait" role="listitem">
+            <div class="periode-experience">Oct. 2024 — Présent</div>
+            <div>
+              <h3 class="poste-experience">Responsable Opérationnel</h3>
+              <p class="entreprise-experience">McDonald's Dijon</p>
+              <p class="contexte-experience">Je manage aujourd'hui une équipe d'environ 20 personnes, en assurant le bon fonctionnement du restaurant au quotidien.</p>
+              <div class="taches-experience">
+                <p class="tache-experience">Management d'une équipe de 20 personnes : plannings, briefings, gestion des priorités</p>
+                <p class="tache-experience">Analyse des ventes et des flux clients pour identifier les tendances de consommation</p>
+                <p class="tache-experience">Suivi des KPI : temps de service, satisfaction client, volume de ventes</p>
+                <p class="tache-experience">Optimisation des ressources humaines et matérielles selon les données d'activité</p>
+                <p class="tache-experience">Prise de décisions opérationnelles basée sur les données pour améliorer la performance</p>
+                <p class="tache-experience">Garant du respect des normes d'hygiène, de sécurité et des procédures internes</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="element-experience apparait" role="listitem">
+            <div class="periode-experience">Sept. 2024 — Oct. 2024</div>
+            <div>
+              <h3 class="poste-experience">Chef d'Équipe</h3>
+              <p class="entreprise-experience">McDonald's Dijon</p>
+              <div class="taches-experience">
+                <p class="tache-experience">Coordination de l'équipe en service : organisation des postes et gestion des flux</p>
+                <p class="tache-experience">Veille à la conformité des pratiques et au respect des procédures qualité</p>
+                <p class="tache-experience">Relais entre l'équipe et la direction pour assurer une communication fluide</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="element-experience apparait" role="listitem">
+            <div class="periode-experience">Mai 2022 — Août 2024</div>
+            <div>
+              <h3 class="poste-experience">Équipière Polyvalente & Formatrice</h3>
+              <p class="entreprise-experience">McDonald's Dijon</p>
+              <p class="contexte-experience">Toute ma licence, j'ai travaillé les weekends et les vacances scolaires — développant autonomie, rigueur et sens des responsabilités en parallèle de mes études.</p>
+              <div class="taches-experience">
+                <p class="tache-experience">Gestion de la caisse, service client en salle et commandes drive</p>
+                <p class="tache-experience">Formation et accompagnement des nouvelles recrues aux procédures du restaurant</p>
+                <p class="tache-experience">Polyvalence sur l'ensemble des postes : cuisine, accueil, production</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== QUALITES ===== -->
+<section id="qualites" class="section-portfolio">
+  <div class="contenant">
+    <div class="en-tete-section apparait">
+      <span class="etiquette-section">Savoir-être</span>
+      <h2 class="titre-section">Mes qualités</h2>
+      <p class="description-section">
+        Des compétences humaines forgées autant par mes études que par mes expériences professionnelles et associatives.
+      </p>
+    </div>
+
+    <div class="grille-qualites">
+
+      <article class="carte-qualite apparait">
+        <div class="emoji-qualite">🎯</div>
+        <h3 class="titre-qualite">Rigoureuse</h3>
+        <p class="texte-qualite">
+          Je soigne la qualité de mon travail, que ce soit dans mon code, mes analyses ou mes responsabilités en équipe. Je cherche toujours à bien faire.
+        </p>
+      </article>
+
+      <article class="carte-qualite apparait apparait-decale-1">
+        <div class="emoji-qualite">🤝</div>
+        <h3 class="titre-qualite">Esprit d'équipe</h3>
+        <p class="texte-qualite">
+          Manager une équipe de 20 personnes m'a appris à écouter, fédérer et avancer ensemble. Je crois que les meilleurs résultats se construisent collectivement.
+        </p>
+      </article>
+
+      <article class="carte-qualite apparait apparait-decale-2">
+        <div class="emoji-qualite">🔄</div>
+        <h3 class="titre-qualite">Adaptabilité</h3>
+        <p class="texte-qualite">
+          Jongler entre études, travail et bénévolat m'a appris à m'adapter rapidement à de nouvelles situations et à garder le cap sous pression.
+        </p>
+      </article>
+
+      <article class="carte-qualite apparait">
+        <div class="emoji-qualite">⚡</div>
+        <h3 class="titre-qualite">Autonomie</h3>
+        <p class="texte-qualite">
+          Habituée à avancer seule sur mes projets tout en gérant mes responsabilités, je sais m'organiser et prendre des initiatives.
+        </p>
+      </article>
+
+      <article class="carte-qualite apparait apparait-decale-1">
+        <div class="emoji-qualite">🔍</div>
+        <h3 class="titre-qualite">Curiosité</h3>
+        <p class="texte-qualite">
+          J'aime comprendre comment les choses fonctionnent. Je cherche toujours à apprendre et à approfondir mes connaissances.
+        </p>
+      </article>
+
+      <article class="carte-qualite apparait apparait-decale-2">
+        <div class="emoji-qualite">🧠</div>
+        <h3 class="titre-qualite">Esprit analytique</h3>
+        <p class="texte-qualite">
+          J’analyse les problèmes en profondeur et propose des solutions structurées. J’adopte une approche logique en développement comme en data.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== BENEVOLT ET CERTIFICATIONS ===== -->
+    <section id="benevolt" class="section-portfolio">
+      <div class="contenant">
+        <div class="grille-benevolt-certif">
+
+          <!-- Bénévolat -->
+          <div>
+            <div class="en-tete-section apparait">
+              <span class="etiquette-section">Bénévolat</span>
+              <h2 class="titre-section">Engagement associatif</h2>
+            </div>
+            <div class="liste-benevolt">
+              <article class="carte-benevolt apparait">
+                <div class="icone-benevolt" aria-hidden="true"><i class="fas fa-heart"></i></div>
+                <div>
+                  <h3 class="titre-benevolt">Croix-Rouge française</h3>
+                  <p class="texte-benevolt">Bénévole active : je rends visite aux personnes âgées en EHPAD pour partager des moments d'échange et rompre leur isolement.</p>
+                </div>
+              </article>
+              <article class="carte-benevolt apparait apparait-decale-1">
+                <div class="icone-benevolt" aria-hidden="true"><i class="fas fa-store"></i></div>
+                <div>
+                  <h3 class="titre-benevolt">Épicerie solidaire du campus</h3>
+                  <p class="texte-benevolt">Participation à une épicerie à prix réduit pour étudiants en situation de précarité sur le campus : tenue de caisse et accueil des bénéficiaires.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div>
+            <div class="en-tete-section apparait">
+              <span class="etiquette-section">Certifications</span>
+              <h2 class="titre-section">Autres atouts</h2>
+            </div>
+            <div class="liste-certif">
+              <article class="carte-certif apparait">
+                <div class="badge-certif" aria-hidden="true"><i class="fas fa-first-aid"></i></div>
+                <div>
+                  <h3 class="titre-certif">SST — Sauveteur Secouriste du Travail</h3>
+                  <p class="texte-certif">Certification nationale permettant d'intervenir en premiers secours en cas d'accident du travail.</p>
+                </div>
+              </article>
+              <article class="carte-certif apparait apparait-decale-1">
+                <div class="badge-certif" aria-hidden="true"><i class="fas fa-bolt"></i></div>
+                <div>
+                  <h3 class="titre-certif">Habilitation Électrique</h3>
+                  <p class="texte-certif">Formation sur les risques électriques et les bonnes pratiques de sécurité lors d'interventions techniques.</p>
+                </div>
+              </article>
+              <article class="carte-certif apparait apparait-decale-2">
+                <div class="badge-certif" aria-hidden="true"><i class="fas fa-leaf"></i></div>
+                <div>
+                  <h3 class="titre-certif">Management Durable</h3>
+                  <p class="texte-certif">Sensibilisation à la gestion responsable, à l'organisation d'équipe et aux enjeux du développement durable en entreprise.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="ligne-separateur" />
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section-portfolio">
+      <div class="contenant">
+        <div class="boite-contact apparait">
+          <h2 class="titre-contact">Travaillons ensemble</h2>
+          <p class="description-contact">Je suis disponible pour une alternance dès la rentrée 2026. N'hésitez pas à me contacter.</p>
+          <div class="options-contact">
+            <a href="mailto:bouslmanzineb2002@gmail.com" class="option-contact">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              bouslmanzineb2002@gmail.com
+            </a>
+            <a href="https://github.com/BouslmanZineb" class="option-contact" target="_blank" rel="noopener">
+              <i class="fab fa-github" aria-hidden="true"></i>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/zineb-bouslman-3a405220a/" class="option-contact" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin" aria-hidden="true"></i>
+              LinkedIn
+            </a>
+         
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer id="pied-page">
+    <div class="contenant">
+      <div class="contenu-pied">
+        <p class="copyright-pied">© 2026 Zineb Bouslman </p>
+        <nav class="liens-pied" aria-label="Liens de pied de page">
+          <a href="mailto:bouslmanzineb2002@gmail.com">Email</a>
+          <a href="https://github.com/BouslmanZineb" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/zineb-bouslman-3a405220a/" target="_blank" rel="noopener">LinkedIn</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== MENU MOBILE =====
+    const boutonMenu = document.getElementById('bouton-menu-mobile');
+    const menuPrincipal = document.getElementById('menu-principal');
+
+    boutonMenu?.addEventListener('click', () => {
+      const ouvert = menuPrincipal.classList.toggle('ouvert');
+      boutonMenu.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('.lien-menu').forEach(lien => {
+      lien.addEventListener('click', () => {
+        menuPrincipal.classList.remove('ouvert');
+        boutonMenu?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ===== ANIMATIONS AU DÉFILEMENT =====
+    const observateur = new IntersectionObserver((entrees) => {
+      entrees.forEach(entree => {
+        if (entree.isIntersecting) {
+          entree.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.apparait').forEach(el => observateur.observe(el));
+  </script>
+
+</body>
+</html>
